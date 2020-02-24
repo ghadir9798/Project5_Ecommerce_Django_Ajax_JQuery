@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-sm-4">
+        {% for img in images %}
+            {% if img.featured %}
+                <div class="col-xs-12">
+                    <img class="img-responsive" src="{{MEDIA_URL}}{{img.image}}" alt="unknown">
+                    <br/><hr/>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% for img in images %}
+            {% if not img.featured %}
+                <div class = "col-xs-6">
+                    <a href="#" class = "thumbnail">
+                        <img class="img-responsive" src="{{MEDIA_URL}}{{img.image}}" alt="unknown">
+                        <p>Not Featured</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-sm-8">
+        <div class="col-sm-8 pull-left">
+            <h1>{{product.title}}</h1>
+        </div>
+        <div class="col-sm-4 pull-right">
+            <form action="{% url 'add_to_cart' product.slug %}" class="form pull-right" method="POST">
+                {% csrf_token %}
+                <input class="form-control" type="number" name="qty" value="1">
+                <input class="btn btn-primary btn-block" type="submit" value="Add to Cart">
+                {% if product.variation_set.all %}
+                    {% if product.variation_set.sizes %}
+                        <select name="size" class="form-control" >
+                            {% for item in product.variation_set.sizes %}
+                                <option value="{{item.title|lower}}">{{item.title|capfirst}}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                    {% if product.variation_set.colors %}
+                        <select name="color" class="form-control" >
+                            {% for item in product.variation_set.colors %}
+                                <option value="{{item.title|lower}}">{{item.title|capfirst}}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-sm-12">
+            <hr>
+            <h4>Price: {{product.price}}</h4>
+            <h5>Shipping free with $25 + Purchase</h5>
+            <hr>
+        </div>
+        <div class="col-sm-12">
+            {{product.description|linebreaks}}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
