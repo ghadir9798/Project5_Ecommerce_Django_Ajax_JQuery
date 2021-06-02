@@ -15,5 +15,5 @@ soupsieve==1.9.5
 South==1.0.2
 sqlparse==0.3.0
 stripe==2.42.0
-urllib3==1.25.8
+urllib3==1.26.5
 zope.interface==4.7.1
