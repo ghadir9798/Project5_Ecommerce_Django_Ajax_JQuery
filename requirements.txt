@@ -7,7 +7,7 @@ DateTime==4.3
 Django==3.0.2
 django-jquery==3.1.0
 idna==2.9
-Pillow==7.0.0
+Pillow==9.3.0
 pytz==2019.3
 requests==2.23.0
 selenium==3.141.0
